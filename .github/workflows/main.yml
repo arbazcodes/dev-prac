@@ -43,6 +43,7 @@ jobs:
           host: 54.144.103.38
           username: ubuntu
           password: ${{ secrets.DEPLOY_KEY }}
+          port: 22
           script: |
             sudo docker-compose up
         
