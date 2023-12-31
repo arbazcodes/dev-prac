@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Resolve dep
-        run: npm i
+        run: npm install
 
       - name: Build
         run: |
@@ -29,6 +29,7 @@ jobs:
 
       - name: Test
         run: |
+          npm install
           npm run test:frontend:unit
           npm run test:api:with:servers
 
