@@ -27,15 +27,28 @@ jobs:
           npm install
           cd ..
 
-      - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v4
+      - name: Deploy Changes
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: ~/
+          remote_host: 54.227.124.173
+          remote_user: ubuntu
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+    
+    
+  second-job: 
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: multiple command
+        uses: appleboy/ssh-action@v1.0.1
         with:
           host: 54.227.124.173
-          port: 22
           username: ubuntu
-          private_key: ${{ secrets.DEPLOY_KEY }}
-          scp_source: ./*
-          scp_target: ~/
-          before_script: ls
-          after_script: sudo docker-compose up
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: sudo docker-compose
+     
         
