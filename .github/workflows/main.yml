@@ -49,6 +49,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.DEPLOY_KEY }}
           port: 22
-          script: sudo docker-compose
+          script: sudo docker compose up
      
         
