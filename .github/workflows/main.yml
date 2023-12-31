@@ -27,30 +27,15 @@ jobs:
           npm install
           cd ..
 
-      - name: Deploy 
-        uses: contention/rsync-deployments@v2.0.0
+      - name: SSH Server Deploy
+        uses: kostya-ten/ssh-server-deploy@v4
         with:
-          FLAGS: -avzr --delete
-          EXCLUDES: --exclude .htaccess --exclude /uploads/
-          USER: ubuntu
-          HOST: 54.147.134.119
-          LOCALPATH: ./
-          REMOTEPATH: ~/
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-
-      - name: Start
-        uses: appleboy/ssh-action@v1.0.1
-        with:
-          host: 54.147.134.119
-          username: ubuntu
-          key: ${{ secrets.DEPLOY_KEY }}
+          host: 54.227.124.173
           port: 22
-          script: |
-            cd ~/
-            sudo docker-compose up
-
-      - name: leave
-        run: |
-          exit
-          pwd
+          username: ubuntu
+          private_key: ${{ secrets.DEPLOY_KEY }}
+          scp_source: ./*
+          scp_target: ~/
+          before_script: ls
+          after_script: sudo docker-compose up
         
