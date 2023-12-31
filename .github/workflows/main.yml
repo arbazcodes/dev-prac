@@ -29,6 +29,7 @@ jobs:
 
       - name: Test
         run: |
+          cypress install
           npm run test:frontend:unit
           npm run test:api:with:servers
           npm run test:frontend:with:server
