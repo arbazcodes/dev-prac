@@ -33,16 +33,16 @@ jobs:
           switches: -avzr --delete
           path: ./
           remote_path: ~/
-          remote_host: 54.144.103.38
+          remote_host: 34.204.49.207
           remote_user: ubuntu
           remote_key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Start
         uses: appleboy/ssh-action@v1.0.1
         with:
-          host: 54.144.103.38
+          host: 34.204.49.207
           username: ubuntu
-          password: ${{ secrets.DEPLOY_KEY }}
+          key: ${{ secrets.DEPLOY_KEY }}
           port: 22
           script: |
             sudo docker-compose up
